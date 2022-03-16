@@ -85,6 +85,7 @@ context('Create detector workflow', () => {
       cy.get('.euiText--medium')
         .invoke('text')
         .then((detectorId) => {
+          cy.stopDetector(detectorId);
           cy.log('Deleting detector with ID: ' + detectorId);
           cy.deleteDetector(detectorId);
         });

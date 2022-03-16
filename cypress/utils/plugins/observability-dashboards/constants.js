@@ -172,7 +172,7 @@ export const moveToCreatePage = () => {
   cy.wait(delayTime * 2);
   cy.get('.euiButton__text').contains('Create application').click();
   supressResizeObserverIssue();
-  cy.wait(delayTime);
+  cy.wait(delayTime * 2);
   cy.get('.euiTitle').contains('Create application').should('exist');
 };
 
@@ -180,7 +180,7 @@ export const moveToApplication = () => {
   cy.visit(`${BASE_PATH}/app/observability-dashboards#/application_analytics/`);
   cy.wait(delayTime * 5);
   cy.get('.euiLink').contains(name).click();
-  cy.wait(delayTime);
+  cy.wait(delayTime * 2);
   cy.get('.euiTitle').contains(name).should('exist');
   changeTimeTo24('years');
 };
@@ -190,7 +190,7 @@ export const moveToEditPage = () => {
   cy.get('.euiTab').contains('Configuration').click();
   cy.get('.euiButton').contains('Edit').click();
   supressResizeObserverIssue();
-  cy.wait(delayTime);
+  cy.wait(delayTime * 2);
   cy.get('.euiTitle').contains('Edit application');
 };
 

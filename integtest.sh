@@ -54,37 +54,4 @@ while getopts ":hb:p:s:c:v:" arg; do
     esac
 done
 
-
-if [ -z "$BIND_ADDRESS" ]
-then
-  BIND_ADDRESS="localhost"
-fi
-
-if [ -z "$BIND_PORT" ]
-then
-  BIND_PORT="5601"
-fi
-
-if [ -z "$SECURITY_ENABLED" ]
-then
-  SECURITY_ENABLED="true"
-fi
-
-if [ -z "$CREDENTIAL" ]
-then
-  CREDENTIAL="admin:admin"
-  USERNAME=`echo $CREDENTIAL | awk -F ':' '{print $1}'`
-  PASSWORD=`echo $CREDENTIAL | awk -F ':' '{print $2}'`
-fi
-
 npm install
-
-if [ $SECURITY_ENABLED = "true" ]
-then
-   echo "run security enabled tests"
-   yarn cypress:run-with-security --browser chromium --spec 'cypress/integration/core-opensearch-dashboards/opensearch-dashboards/*.js,cypress/integration/plugins/*/*'
-else
-   echo "run security disabled tests"
-   yarn cypress:run-without-security --browser chromium --spec 'cypress/integration/core-opensearch-dashboards/opensearch-dashboards/*.js,cypress/integration/plugins/*/*'
-
-fi

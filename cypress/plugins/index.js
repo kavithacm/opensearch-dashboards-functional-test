@@ -18,5 +18,11 @@
 // eslint-disable-next-line no-unused-vars
 module.exports = (on, config) => {
   // `on` is used to hook into various events Cypress emits
-  // `config` is the resolved Cypress config
+  // // `config` is the resolved Cypress config
+  // on('before:browser:launch', (browser = {}, launchOptions) => {
+  //   launchOptions.args.push('--disable-web-security');
+  //   launchOptions.args.push('--max_old_space_size=5000');
+  //   launchOptions.args.push('--disable-dev-shm-usage');
+  //   return launchOptions;
+  // });
 };
