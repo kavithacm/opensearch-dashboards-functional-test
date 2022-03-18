@@ -2,6 +2,18 @@
 
 set -e
 
+CORE_COMPONENT="opensearch-dashboards"
+COMPONENTS=(
+   # "alerting-dashboards-plugin"
+    # "anomaly-detection-dashboards-plugin"
+    "gantt-chart-dashboards"
+    # "index-management-dashboards-plugin"
+    # "observability-dashboards"
+    # "query-workbench-dashboards"
+    # "reports-dashboards"
+    # "security"
+)
+
 function usage() {
     echo ""
     echo "This script is used to run integration tests for plugin installed on a remote OpenSearch/Dashboards cluster."
@@ -21,7 +33,7 @@ function usage() {
     echo "--------------------------------------------------------------------------"
 }
 
-while getopts ":hb:p:s:c:v:" arg; do
+while getopts ":h:b:p:s:c:v:" arg; do
     case $arg in
         h)
             usage
@@ -77,14 +89,20 @@ then
   PASSWORD=`echo $CREDENTIAL | awk -F ':' '{print $2}'`
 fi
 
+for component in "${COMPONENTS[@]}"
+do
+    SPECS+="cypress/integration/plugins/${component}/*,"
+done
+SPECS+="cypress/integration/core-opensearch-dashboards/${CORE_COMPONENT}/*.js"
+
 npm install
 
 if [ $SECURITY_ENABLED = "true" ]
 then
    echo "run security enabled tests"
-   yarn cypress:run-with-security --browser chromium --spec 'cypress/integration/core-opensearch-dashboards/opensearch-dashboards/*.js,cypress/integration/plugins/*/*'
+   yarn cypress:run-with-security --spec "$SPECS"
 else
    echo "run security disabled tests"
-   yarn cypress:run-without-security --browser chromium --spec 'cypress/integration/core-opensearch-dashboards/opensearch-dashboards/*.js,cypress/integration/plugins/*/*'
+   yarn cypress:run-without-security --spec "$SPECS"
 
 fi
