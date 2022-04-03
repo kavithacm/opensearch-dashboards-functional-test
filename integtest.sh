@@ -79,11 +79,11 @@ fi
 
 npm install
 
-TEST_FILES='cypress/integration/core-opensearch-dashboards/opensearch-dashboards/*.js'
+# TEST_FILES='cypress/integration/core-opensearch-dashboards/opensearch-dashboards/*.js'
 
 # TEST_FILES+=',cypress/integration/plugins/anomaly-detection-dashboards-plugin/*'
 # TEST_FILES+=',cypress/integration/plugins/gantt-chart-dashboards/*'
-# TEST_FILES+=',cypress/integration/plugins/alerting-dashboards-plugin/*'
+TEST_FILES+='cypress/integration/plugins/alerting-dashboards-plugin/*'
 # TEST_FILES+=',cypress/integration/plugins/index-management-dashboards-plugin/*'
 # TEST_FILES+=',cypress/integration/plugins/observability-dashboards/*'
 # TEST_FILES+=',cypress/integration/plugins/query-workbench-dashboards/*'
