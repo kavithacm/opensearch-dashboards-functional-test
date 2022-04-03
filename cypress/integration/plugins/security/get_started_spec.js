@@ -126,7 +126,7 @@ if(Cypress.env("SECURITY_ENABLED")) {
                     cy.contains('button', 'Purge cache').first().click({ force: true });
                 }
             ).then((response) => {
-                const body = JSON.parse(response.response.body);
+                const body = JSON.parse(response.response.body.replace(/\n/g, '\\n'));
     
                 expect(body.message).to.equal('Cache flushed successfully.');
             });

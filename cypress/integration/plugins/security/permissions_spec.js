@@ -128,7 +128,7 @@ if(Cypress.env("SECURITY_ENABLED")) {
           cy.get('button[id="submit"]').first().click({ force: true });
         }
       ).then((response) => {
-        const body = JSON.parse(response.response.body);
+        const body = JSON.parse(response.response.body.replace(/\n/g, '\\n'));
         const testAG = body.data.test;
   
         expect(testAG).to.not.be.null;
