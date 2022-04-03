@@ -88,12 +88,12 @@ npm install
 # TEST_FILES+=',cypress/integration/plugins/observability-dashboards/*'
 # TEST_FILES+=',cypress/integration/plugins/query-workbench-dashboards/*'
 # TEST_FILES+=',cypress/integration/plugins/reports-dashboards/*'
-TEST_FILES+='cypress/integration/plugins/security/*'
+TEST_FILES+='cypress/integration/plugins/security/audit_log_spec.js'
 
 if [ $SECURITY_ENABLED = "true" ]
 then
    echo "run security enabled tests"
-   yarn cypress:run-with-security --browser chromium --spec $TEST_FILES
+   yarn cypress:run-with-security  --spec $TEST_FILES
 else
    echo "run security disabled tests"
    yarn cypress:run-without-security --browser chromium --spec $TEST_FILES
