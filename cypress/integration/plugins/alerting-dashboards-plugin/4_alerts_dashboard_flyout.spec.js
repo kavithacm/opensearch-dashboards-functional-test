@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { ALERTING_INDEX, ALERTING_PLUGIN_NAME } from '../../../utils/plugins/alerting-dashboards-plugin/constants';
+import { ALERTING_PLUGIN_NAME } from '../../../utils/plugins/alerting-dashboards-plugin/constants';
 import sampleAlertsFlyoutBucketMonitor from '../../../fixtures/plugins/alerting-dashboards-plugin/sample_alerts_flyout_bucket_level_monitor.json';
 import sampleAlertsFlyoutQueryMonitor from '../../../fixtures/plugins/alerting-dashboards-plugin/sample_alerts_flyout_query_level_monitor.json';
 import { BASE_PATH } from "../../../utils/base_constants";
@@ -14,18 +14,18 @@ const QUERY_MONITOR = 'sample_alerts_flyout_query_level_monitor';
 const QUERY_TRIGGER = 'sample_alerts_flyout_query_level_trigger';
 
 const TWENTY_SECONDS = 20000;
+const testMonitors = [];
 
 describe('Alerts by trigger flyout', () => {
   before(() => {
     // Delete any existing monitors
     cy.deleteAllMonitors();
 
-    // Load sample data
-    cy.loadSampleEcommerceData();
-
     // Create the test monitors
-    cy.createMonitor(sampleAlertsFlyoutBucketMonitor);
-    cy.createMonitor(sampleAlertsFlyoutQueryMonitor);
+    const bucketMonitor = cy.createMonitor(sampleAlertsFlyoutBucketMonitor);
+    testMonitors.push(bucketMonitor);
+    const queryMonitor = cy.createMonitor(sampleAlertsFlyoutQueryMonitor);
+    testMonitors.push(queryMonitor);
 
     // Visit Alerting OpenSearch Dashboards
     cy.visit(`${BASE_PATH}/app/${ALERTING_PLUGIN_NAME}#/monitors`);
@@ -235,9 +235,6 @@ describe('Alerts by trigger flyout', () => {
 
   after(() => {
     // Delete all monitors
-    cy.deleteAllMonitors();
-
-    // Delete sample data
-    cy.deleteIndexByName(`${ALERTING_INDEX.SAMPLE_DATA_ECOMMERCE}`);
+    cy.deleteMonitors(testMonitors);
   });
 });

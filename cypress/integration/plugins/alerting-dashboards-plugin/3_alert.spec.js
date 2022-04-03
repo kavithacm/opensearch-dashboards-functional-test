@@ -9,8 +9,13 @@ import sampleQueryLevelMonitorWorkflow from '../../../fixtures/plugins/alerting-
 import { BASE_PATH } from "../../../utils/base_constants";
 
 const TESTING_INDEX = 'alerting_test';
+const testMonitors = [];
 
 describe('Alerts', () => {
+  before(() => {
+    cy.deleteAllMonitors();
+  })
+
   beforeEach(() => {
     // Set welcome screen tracking to false
     localStorage.setItem('home:welcome:show', 'false');
@@ -24,12 +29,13 @@ describe('Alerts', () => {
 
   describe("can be in 'Active' state", () => {
     before(() => {
-      cy.deleteAllMonitors();
+      cy.deleteMonitors(testMonitors);
       // Generate a unique number in every test by getting a unix timestamp in milliseconds
       Cypress.config('unique_number', `${Date.now()}`);
       // Modify the monitor name to be unique
       sampleQueryLevelMonitorWithAlwaysTrueTrigger.name += `-${Cypress.config('unique_number')}`;
-      cy.createMonitor(sampleQueryLevelMonitorWithAlwaysTrueTrigger);
+      const monitor = cy.createMonitor(sampleQueryLevelMonitorWithAlwaysTrueTrigger);
+      testMonitors.push(monitor);
     });
 
     it('after the monitor starts running', () => {
@@ -54,11 +60,12 @@ describe('Alerts', () => {
 
   describe("can be in 'Acknowledged' state", () => {
     before(() => {
-      cy.deleteAllMonitors();
+      cy.deleteMonitors(testMonitors);
       Cypress.config('unique_number', `${Date.now()}`);
       // Modify the monitor name to be unique
       sampleQueryLevelMonitorWithAlwaysTrueTrigger.name += `-${Cypress.config('unique_number')}`;
-      cy.createAndExecuteMonitor(sampleQueryLevelMonitorWithAlwaysTrueTrigger);
+      const monitor = cy.createAndExecuteMonitor(sampleQueryLevelMonitorWithAlwaysTrueTrigger);
+      testMonitors.push(monitor);
     });
 
     it('by clicking the button in Dashboard', () => {
@@ -84,13 +91,14 @@ describe('Alerts', () => {
 
   describe("can be in 'Completed' state", () => {
     before(() => {
-      cy.deleteAllMonitors();
+      cy.deleteMonitors(testMonitors);
       // Delete the target indices defined in 'sample_monitor_workflow.json'
       cy.deleteIndexByName('alerting*');
       Cypress.config('unique_number', `${Date.now()}`);
       // Modify the monitor name to be unique
       sampleQueryLevelMonitorWorkflow.name += `-${Cypress.config('unique_number')}`;
-      cy.createAndExecuteMonitor(sampleQueryLevelMonitorWorkflow);
+      const monitor = cy.createAndExecuteMonitor(sampleQueryLevelMonitorWorkflow);
+      testMonitors.push(monitor);
     });
 
     it('when the trigger condition is not met after met once', () => {
@@ -133,7 +141,7 @@ describe('Alerts', () => {
 
   describe("can be in 'Error' state", () => {
     before(() => {
-      cy.deleteAllMonitors();
+      cy.deleteMonitors(testMonitors);
       // modify the JSON object to make an error alert when executing the monitor
       sampleQueryLevelMonitorWithAlwaysTrueTrigger.triggers[0].actions = [
         { name: '', destination_id: '', message_template: { source: '' } },
@@ -141,7 +149,8 @@ describe('Alerts', () => {
       Cypress.config('unique_number', `${Date.now()}`);
       // Modify the monitor name to be unique
       sampleQueryLevelMonitorWithAlwaysTrueTrigger.name += `-${Cypress.config('unique_number')}`;
-      cy.createAndExecuteMonitor(sampleQueryLevelMonitorWithAlwaysTrueTrigger);
+      const monitor = cy.createAndExecuteMonitor(sampleQueryLevelMonitorWithAlwaysTrueTrigger);
+      testMonitors.push(monitor)
     });
 
     it('by using a wrong destination', () => {
@@ -157,11 +166,12 @@ describe('Alerts', () => {
 
   describe("can be in 'Deleted' state", () => {
     before(() => {
-      cy.deleteAllMonitors();
+      cy.deleteMonitors(testMonitors);
       Cypress.config('unique_number', `${Date.now()}`);
       // Modify the monitor name to be unique
       sampleQueryLevelMonitorWithAlwaysTrueTrigger.name += `-${Cypress.config('unique_number')}`;
-      cy.createAndExecuteMonitor(sampleQueryLevelMonitorWithAlwaysTrueTrigger);
+      const monitor = cy.createAndExecuteMonitor(sampleQueryLevelMonitorWithAlwaysTrueTrigger);
+      testMonitors.push(monitor);
     });
 
     it('by deleting the monitor', () => {
@@ -191,6 +201,6 @@ describe('Alerts', () => {
 
   after(() => {
     // Delete all existing monitors
-    cy.deleteAllMonitors();
+    cy.deleteMonitors(testMonitors);
   });
 });

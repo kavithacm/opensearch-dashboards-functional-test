@@ -15,6 +15,9 @@ const SAMPLE_MONITOR_WITH_ANOTHER_NAME = 'sample_query_level_monitor_with_always
 const SAMPLE_TRIGGER = 'sample_trigger';
 const SAMPLE_ACTION = 'sample_action';
 
+const testMonitors = [];
+const testDestinations = [];
+
 describe('Query-Level Monitors', () => {
   beforeEach(() => {
     // Set welcome screen tracking to false
@@ -30,7 +33,8 @@ describe('Query-Level Monitors', () => {
   describe('can be created', () => {
     before(() => {
       cy.deleteAllMonitors();
-      cy.createDestination(sampleDestination);
+      const destination = cy.createDestination(sampleDestination);
+      testDestinations.push(destination);
     });
 
     it('by extraction query', () => {
@@ -88,8 +92,9 @@ describe('Query-Level Monitors', () => {
 
   describe('can be updated', () => {
     before(() => {
-      cy.deleteAllMonitors();
-      cy.createMonitor(sampleQueryLevelMonitor);
+      cy.deleteMonitors(testMonitors);
+      const monitor = cy.createMonitor(sampleQueryLevelMonitor);
+      testMonitors.push(monitor);
     });
 
     it('by changing the name', () => {
@@ -124,8 +129,9 @@ describe('Query-Level Monitors', () => {
 
   describe('can be deleted', () => {
     before(() => {
-      cy.deleteAllMonitors();
-      cy.createMonitor(sampleQueryLevelMonitor);
+      cy.deleteMonitors(testMonitors);
+      const monitor = cy.createMonitor(sampleQueryLevelMonitor);
+      testMonitors.push(monitor);
     });
 
     it('from "Actions" menu', () => {
@@ -148,12 +154,14 @@ describe('Query-Level Monitors', () => {
 
   describe('can be searched', () => {
     before(() => {
-      cy.deleteAllMonitors();
+      cy.deleteMonitors(testMonitors);
       // Create 21 monitors so that a monitor will not appear in the first page
       for (let i = 0; i < 20; i++) {
-        cy.createMonitor(sampleQueryLevelMonitor);
+        const monitor = cy.createMonitor(sampleQueryLevelMonitor);
+        testMonitors.push(monitor);
       }
-      cy.createMonitor(sampleQueryLevelMonitorWithAlwaysTrueTrigger);
+      const monitor = cy.createMonitor(sampleQueryLevelMonitorWithAlwaysTrueTrigger);
+      testMonitors.push(monitor);
     });
 
     it('by name', () => {
@@ -176,7 +184,7 @@ describe('Query-Level Monitors', () => {
 
   after(() => {
     // Delete all existing monitors and destinations
-    cy.deleteAllMonitors();
-    cy.deleteAllDestinations();
+    cy.deleteMonitors(testMonitors);
+    cy.deleteDestinations(testDestinations);
   });
 });

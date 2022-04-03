@@ -32,11 +32,19 @@ import {ALERTING_API, BASE_PATH} from '../../constants';
 // Cypress.Commands.overwrite("visit", (originalFn, url, options) => { ... })
 
 Cypress.Commands.add('createMonitor', (monitorJSON) => {
-  cy.request('POST', `${Cypress.env('openSearchUrl')}${ALERTING_API.MONITOR_BASE}`, monitorJSON);
+  cy.request('POST', `${Cypress.env('openSearchUrl')}${ALERTING_API.MONITOR_BASE}`, monitorJSON).then(
+    (response) => {
+      return response.body._id;
+    }
+  );
 });
 
 Cypress.Commands.add('createDestination', (destinationJSON) => {
-  cy.request('POST', `${Cypress.env('openSearchUrl')}${ALERTING_API.DESTINATION_BASE}`, destinationJSON);
+  cy.request('POST', `${Cypress.env('openSearchUrl')}${ALERTING_API.DESTINATION_BASE}`, destinationJSON).then(
+    (response) => {
+      return response.body._id;
+    }
+  );
 });
 
 Cypress.Commands.add('createAndExecuteMonitor', (monitorJSON) => {
@@ -46,6 +54,7 @@ Cypress.Commands.add('createAndExecuteMonitor', (monitorJSON) => {
         'POST',
         `${Cypress.env('openSearchUrl')}${ALERTING_API.MONITOR_BASE}/${response.body._id}/_execute`
       );
+      return response.body._id;
     }
   );
 });
@@ -99,6 +108,16 @@ Cypress.Commands.add('deleteAllMonitors', () => {
   });
 });
 
+Cypress.Commands.add('deleteMonitors', (monitors) => {
+  while (monitors.length) {
+    const monitor = monitors.pop();
+    cy.request(
+      'DELETE',
+      `${Cypress.env('openSearchUrl')}${ALERTING_API.MONITOR_BASE}/${monitor._id}`
+    );
+  }
+});
+
 Cypress.Commands.add('deleteAllDestinations', () => {
   cy.request({
     method: 'GET',
@@ -109,13 +128,23 @@ Cypress.Commands.add('deleteAllDestinations', () => {
       for (let i = 0; i < response.body.totalDestinations; i++) {
         cy.request(
           'DELETE',
-          `${Cypress.env('openSearchUrl')}${ALERTING_API.DESTINATION_BASE}/${response.body.destinations[i].id}`
+          `${Cypress.env('openSearchUrl')}${ALERTING_API.DESTINATION_BASE}/${response.body.destinations[i]._id}`
         );
       }
     } else {
       cy.log('Failed to get all destinations.', response);
     }
   });
+});
+
+Cypress.Commands.add('deleteDestinations', (destinations) => {
+  while (destinations.length) {
+    const destination = destinations.pop();
+    cy.request(
+      'DELETE',
+      `${Cypress.env('openSearchUrl')}${ALERTING_API.DESTINATION_BASE}/${destination._id}`
+    );
+  }
 });
 
 Cypress.Commands.add('createIndexByName', (indexName) => {

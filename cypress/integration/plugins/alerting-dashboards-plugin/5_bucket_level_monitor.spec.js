@@ -23,6 +23,9 @@ const GROUP_BY_FIELD = 'user';
 const COUNT_METRIC_NAME = 'count_products_quantity';
 const AVERAGE_METRIC_NAME = 'avg_products_base_price';
 
+const testMonitors = [];
+const testDestinations = [];
+
 const addTriggerToVisualEditorMonitor = (triggerName, triggerIndex, actionName, isEdit) => {
   // Add a trigger
   cy.contains('Add trigger').click({ force: true });
@@ -94,10 +97,9 @@ const addTriggerToVisualEditorMonitor = (triggerName, triggerIndex, actionName, 
 
 describe('Bucket-Level Monitors', () => {
   before(() => {
-    cy.createDestination(sampleDestination);
-
-    // Load sample data
-    cy.loadSampleEcommerceData();
+    cy.deleteAllMonitors();
+    const destination = cy.createDestination(sampleDestination);
+    testDestinations.push(destination);
   });
 
   beforeEach(() => {
@@ -113,7 +115,7 @@ describe('Bucket-Level Monitors', () => {
 
   describe('can be created', () => {
     beforeEach(() => {
-      cy.deleteAllMonitors();
+      cy.deleteMonitors(testMonitors);
       cy.reload();
     });
 
@@ -258,12 +260,13 @@ describe('Bucket-Level Monitors', () => {
 
   describe('can be updated', () => {
     beforeEach(() => {
-      cy.deleteAllMonitors();
+      cy.deleteMonitors(testMonitors);
     });
 
     describe('when defined by extraction query', () => {
       beforeEach(() => {
-        cy.createMonitor(sampleExtractionQueryMonitor);
+        const monitor = cy.createMonitor(sampleExtractionQueryMonitor);
+        testMonitors.push(monitor);
       });
 
       // by adding trigger
@@ -272,7 +275,8 @@ describe('Bucket-Level Monitors', () => {
 
     describe('when defined by visual editor', () => {
       beforeEach(() => {
-        cy.createMonitor(sampleVisualEditorMonitor);
+        const monitor = cy.createMonitor(sampleVisualEditorMonitor);
+        testMonitors.push(monitor);
         cy.reload();
       });
 
@@ -300,10 +304,7 @@ describe('Bucket-Level Monitors', () => {
 
   after(() => {
     // Delete all monitors and destinations
-    cy.deleteAllMonitors();
-    cy.deleteAllDestinations();
-
-    // Delete sample data
-    cy.deleteIndexByName(`${ALERTING_INDEX.SAMPLE_DATA_ECOMMERCE}`);
+    cy.deleteMonitors(testMonitors);
+    cy.deleteDestinations(testDestinations);
   });
 });

@@ -16,6 +16,8 @@ const SAMPLE_URL = 'http://www.sampledestination.com';
 const SAMPLE_TOPIC_ARN ='arn:aws:sns:us-east-1:123456789012:test-sns'
 const SAMPLE_ROLE_ARN ='arn:aws:iam::123456789012:user/test'
 
+const testDestinations = [];
+
 describe('Destinations', () => {
   beforeEach(() => {
     // Set welcome screen tracking to false
@@ -88,8 +90,9 @@ describe('Destinations', () => {
 
   describe('can be updated', () => {
     before(() => {
-      cy.deleteAllDestinations();
-      cy.createDestination(sampleDestination);
+      cy.deleteDestinations(testDestinations);
+      const denstination = cy.createDestination(sampleDestination);
+      testDestinations.push(denstination);
     });
 
     it('by changing the name', () => {
@@ -116,8 +119,9 @@ describe('Destinations', () => {
 
   describe('can be deleted', () => {
     before(() => {
-      cy.deleteAllDestinations();
-      cy.createDestination(sampleDestination);
+      cy.deleteDestinations(testDestinations);
+      const denstination = cy.createDestination(sampleDestination);
+      testDestinations.push(denstination);
     });
 
     it('by clicking the button under "Actions"', () => {
@@ -137,12 +141,14 @@ describe('Destinations', () => {
 
   describe('can be searched', () => {
     before(() => {
-      cy.deleteAllDestinations();
+      cy.deleteDestinations(testDestinations);
       // Create 21 destinations so that a monitor will not appear in the first page
       for (let i = 0; i < 20; i++) {
-        cy.createDestination(sampleDestination);
+        const destination = cy.createDestination(sampleDestination);
+        testDestinations.push(destination);
       }
-      cy.createDestination(sampleDestinationChime);
+      const destination = cy.createDestination(sampleDestinationChime);
+      testDestinations.push(destination);
     });
 
     it('by name', () => {
@@ -165,6 +171,6 @@ describe('Destinations', () => {
 
   after(() => {
     // Delete all existing destinations
-    cy.deleteAllDestinations();
+    cy.deleteDestinations(testDestinations);
   });
 });
