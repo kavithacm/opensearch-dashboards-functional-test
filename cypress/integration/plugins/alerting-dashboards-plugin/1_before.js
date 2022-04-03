@@ -8,4 +8,6 @@ describe('Setting up test environment', () => {
         // Load sample data
         cy.loadSampleEcommerceData();
     });
+
+    it('setup complete', () => {});
 });

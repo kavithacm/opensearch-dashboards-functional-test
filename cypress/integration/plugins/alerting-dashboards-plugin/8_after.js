@@ -12,4 +12,6 @@ describe('Tearing down test environment', () => {
         cy.deleteAllMonitors();
         cy.deleteAllDestinations();
     });
+
+    it('teardown complete', () => {});
 });
