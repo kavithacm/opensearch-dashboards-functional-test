@@ -4,6 +4,8 @@
  */
 
 describe('Setting up test environment', () => {
-    // Load sample data
-    cy.loadSampleEcommerceData();
+    before(() => {
+        // Load sample data
+        cy.loadSampleEcommerceData();
+    });
 });
