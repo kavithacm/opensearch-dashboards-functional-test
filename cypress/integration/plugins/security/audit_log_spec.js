@@ -80,9 +80,10 @@ if(Cypress.env("SECURITY_ENABLED")) {
           // const body = JSON.parse(response.response.body.replace(/\n/g, '\\n'));
           const resultJSON = JSON.parse(JSON.stringify(result));
           const resp = JSON.parse(JSON.stringify(resultJSON.response));
-          // { message: '\'config\' updated.' }
-          const body = JSON.parse(JSON.stringify(resp.body));
-          expect(body).to.equal('{"message":"\'config\' updated."}');
+          const body = JSON.parse(resp.body);
+          const message = body['message'];
+          expect(message).to.equal("'config' updated.");
+         //expect(body).to.equal(expected);
       });
       
       cy.url().should((url) => {
