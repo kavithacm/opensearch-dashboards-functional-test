@@ -73,15 +73,13 @@ if(Cypress.env("SECURITY_ENABLED")) {
         () => {
           cy.get('button[data-test-subj="save"]').click({ force: true });
         }
-      ).should(result => {
-        expect(result.response.body).contains('\'config\' updated.');
+      ).then((result) => {
           // expect(response).to.equal("");
           // expect(response.response).to.equal("");
           // expect(response.response.body).to.equal("");
           // const body = JSON.parse(response.response.body.replace(/\n/g, '\\n'));
-          // const resp = JSON.parse(JSON.stringify(result.response));;
-          // const body = resp.body;
-          // expect(body.message).to.equal("'config' updated.");
+          const resp = JSON.parse(JSON.stringify(result.response));;
+          expect(resp.body).to.contain("'config' updated.");
          //expect(body).to.equal(expected);
       });
       
