@@ -79,7 +79,7 @@ if(Cypress.env("SECURITY_ENABLED")) {
           // expect(response.response.body).to.equal("");
           // const body = JSON.parse(response.response.body.replace(/\n/g, '\\n'));
           const resp = JSON.parse(JSON.stringify(result.response));;
-          expect(resp.body).to.contain("'config' updated.");
+          expect(resp.statusCode).to.equal(200);
          //expect(body).to.equal(expected);
       });
       
