@@ -81,8 +81,8 @@ if(Cypress.env("SECURITY_ENABLED")) {
           const resultJSON = JSON.parse(JSON.stringify(result));
           const resp = JSON.parse(JSON.stringify(resultJSON.response));
           const body = JSON.parse(resp.body);
-          const message = body['message'];
-          expect(message).to.equal("'config' updated.");
+          //const message = body['message'];
+          expect(body).to.equal("'config' updated.");
          //expect(body).to.equal(expected);
       });
       
