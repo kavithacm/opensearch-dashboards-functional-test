@@ -87,6 +87,7 @@ context('Create detector workflow', () => {
         .invoke('text')
         .then((detectorId) => {
           cy.log('Deleting detector with ID: ' + detectorId);
+          cy.stopDetector(detectorId);
           cy.deleteDetector(detectorId);
         });
     });
