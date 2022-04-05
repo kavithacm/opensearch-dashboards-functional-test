@@ -19,7 +19,7 @@ function get_test_list() {
 function generate_test_list() {
     # DEFAULT_TEST_FILES="$OSD_TEST_PATH/opensearch-dashboards/*.js"
     # DEFAULT_TEST_FILES+=",$OSD_PLUGIN_TEST_PATH/alerting-dashboards-plugin/*"
-    DEFAULT_TEST_FILES+=",$OSD_PLUGIN_TEST_PATH/anomaly-detection-dashboards-plugin/create_detector_spec.js"
+    DEFAULT_TEST_FILES+=",$OSD_PLUGIN_TEST_PATH/anomaly-detection-dashboards-plugin/*"
     # DEFAULT_TEST_FILES+=",$OSD_PLUGIN_TEST_PATH/gantt-chart-dashboards/*"
     # DEFAULT_TEST_FILES+=",$OSD_PLUGIN_TEST_PATH/index-management-dashboards-plugin/*"
     # DEFAULT_TEST_FILES+=",$OSD_PLUGIN_TEST_PATH/observability-dashboards/*"
