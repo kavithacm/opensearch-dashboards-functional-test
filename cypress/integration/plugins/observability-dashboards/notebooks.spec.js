@@ -292,6 +292,7 @@ describe('Testing paragraphs', () => {
     cy.get('.euiDataGrid__overflow').should('exist');
   });
 
+  // TODO: Re-add to SAMPLE_VISUALIZATIONS_NAMES once this is unskipped
   it.skip('Adds an observability visualization paragraph', () => {
     cy.contains('Add paragraph').click();
     cy.wait(delayTime);

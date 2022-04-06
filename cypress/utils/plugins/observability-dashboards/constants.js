@@ -130,7 +130,7 @@ export const SAMPLE_VISUALIZATIONS_NAMES = [
   '[Logs] Daily count for error response codes',
   '[Logs] Count requests from US to CN, IN and JP',
   '[Logs] Max and average bytes by host',
-  '[Logs] Count total requests by tags',
+  // '[Logs] Count total requests by tags',
   '[Logs] Daily average bytes',
 ];
 
