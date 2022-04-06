@@ -22,7 +22,7 @@ function generate_test_list() {
     # DEFAULT_TEST_FILES+=",$OSD_PLUGIN_TEST_PATH/anomaly-detection-dashboards-plugin/*"
     # DEFAULT_TEST_FILES+=",$OSD_PLUGIN_TEST_PATH/gantt-chart-dashboards/*"
     # DEFAULT_TEST_FILES+=",$OSD_PLUGIN_TEST_PATH/index-management-dashboards-plugin/*"
-    DEFAULT_TEST_FILES+=",$OSD_PLUGIN_TEST_PATH/observability-dashboards/*"
+    DEFAULT_TEST_FILES+=",$OSD_PLUGIN_TEST_PATH/observability-dashboards/app_analytics.spec.js"
     # DEFAULT_TEST_FILES+=",$OSD_PLUGIN_TEST_PATH/query-workbench-dashboards/*"
     # DEFAULT_TEST_FILES+=",$OSD_PLUGIN_TEST_PATH/reports-dashboards/*"
     # DEFAULT_TEST_FILES+=",$OSD_PLUGIN_TEST_PATH/security/*"
