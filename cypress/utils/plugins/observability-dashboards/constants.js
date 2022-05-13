@@ -261,7 +261,10 @@ export const moveToCreatePage = () => {
 };
 
 export const moveToApplication = (name) => {
-  cy.visit(`${BASE_PATH}/app/observability-dashboards#/application_analytics/`);
+  cy.visit(
+    `${BASE_PATH}/app/observability-dashboards#/application_analytics/`,
+    { waitForGetTenant: true }
+  );
   supressResizeObserverIssue();
   cy.wait(delayTime * 2);
   cy.get(`[data-test-subj="${name}ApplicationLink"]`, {
