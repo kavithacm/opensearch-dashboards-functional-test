@@ -3,6 +3,7 @@ function getTestResults() {
   const version = document.getElementById('version').value;
   const testJobName = document.getElementById('testJobName').value;
   const buildNumber = document.getElementById('buildNumber').value;
+  const testNumber = document.getElementById('testNumber').value;
   const platform = document.getElementById('platform').value;
   const arch = document.getElementById('arch').value;
   const type = document.getElementById('type').value;
@@ -15,10 +16,13 @@ function getTestResults() {
     `${platform}/` +
     `${arch}/` +
     `${type}/` +
-    'test-results/1/integ-test/functionalTestDashboards/' +
+    `test-results/${testNumber}/integ-test/functionalTestDashboards/` +
     `${securityEnabled ? 'with-security' : 'without-security'}/` +
     'test-results/stdout.txt';
 
+  document.querySelector(
+    'testResultsUrl'
+  ).innerHTML = `Results from:\n ${testResultsUrl}`;
   document.getElementById('testResults').src =
     decodeURIComponent(testResultsUrl);
   // fetch(testResultsUrl, { mode: 'no-cors' }).then((response) => {
