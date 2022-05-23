@@ -20,8 +20,8 @@ function getTestResults() {
     `${securityEnabled ? 'with-security' : 'without-security'}/` +
     'test-results/stdout.txt';
 
-  document.querySelector(
-    'testResultsUrl'
+  document.getElementById(
+    'testResultsDiv'
   ).innerHTML = `Results from:\n ${testResultsUrl}`;
   document.getElementById('testResults').src =
     decodeURIComponent(testResultsUrl);
