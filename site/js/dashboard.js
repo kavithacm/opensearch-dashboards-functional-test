@@ -19,12 +19,8 @@ function getTestResults() {
     `${securityEnabled ? 'with-security' : 'without-security'}/` +
     'test-results/stdout.txt';
 
-  document.getElementById('rawTestResults').src = testResultsUrl;
-  const rawTestResultsIframe =
-    document.getElementById('rawTestResults').contentWindow.document.body
-      .innerHTML;
   document.getElementById('testResults').src =
-    decodeURIComponent(rawTestResultsIframe);
+    decodeURIComponent(testResultsUrl);
   // fetch(testResultsUrl, { mode: 'no-cors' }).then((response) => {
   //   response.text().then((data) => {
   //     document.getElementById('testResults').innerHTML = data;
