@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>OpenSearch Dashboards Functional Test Repo</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="js/dashboard.js"></script>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+</head>
+
+<body>
+  <div>
+    <table>
+      <tr>
+        <th>Version</th>
+        <th>Test Job Name</th>
+        <th>Build Number</th>
+        <th>Platform</th>
+        <th>Arch</th>
+        <th>Type</th>
+        <th>With Security</th>
+      </tr>
+      <tr>
+        <td>
+          <input type="text" id="version" value="2.0.0">
+        </td>
+        <td>
+          <input type="text" id="testJobName" value="Playground/avillk-integ-test-opensearch-dashboards">
+        </td>
+        <td>
+          <input type="text" id="buildNumber" value="311">
+        </td>
+        <td>
+          <select id="platform">
+            <option value="linux">Linux</option>
+          </select>
+        </td>
+        <td>
+          <select id="arch">
+            <option value="x64">x64</option>
+            <option value="arm64">arm64</option>
+          </select>
+        </td>
+        <td>
+          <select id="type">
+            <option value="tar">tar</option>
+            <option value="rpm">rpm</option>
+          </select>
+        </td>
+        <td>
+          <input type="checkbox" id="security">
+        </td>
+        <td>
+          <button onclick="getTestResults()">Submit</button>
+        </td>
+      </tr>
+    </table>
+  </div>
+  <div>
+    <iframe id="rawTestResults"></p>
+    <iframe id="testResults"></p>
+  </div>
+</body>
+
+</html>
