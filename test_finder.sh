@@ -43,7 +43,7 @@ function get_test_list() {
         test_folder=${map_entry#*:}
 
         if [ "$component_name" = "OpenSearch-Dashboards" ]; then
-            TEST_PATH_LOCAL=$OSD_TEST_PATH
+            TEST_PATH_LOCAL="$OSD_TEST_PATH/opensearch-dashboards"
             TEST_FILES_EXT_LOCAL="*.js"
         else
             TEST_PATH_LOCAL=$OSD_PLUGIN_TEST_PATH
