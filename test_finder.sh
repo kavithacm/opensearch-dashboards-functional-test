@@ -3,7 +3,7 @@
 set -e
 
 OSD_BUILD_MANIFEST='../local-test-cluster/opensearch-dashboards-*/manifest.yml'
-OSD_TEST_PATH='cypress/integration/core-opensearch-dashboards'
+OSD_TEST_PATH='cypress/integration/core-opensearch-dashboards/opensearch-dashboards'
 OSD_PLUGIN_TEST_PATH='cypress/integration/plugins'
 
 # Map component name in opensearch-build repo INPUT_MANIFEST with folder name for tests in functional repo
@@ -43,7 +43,7 @@ function get_test_list() {
         test_folder=${map_entry#*:}
 
         if [ "$component_name" = "OpenSearch-Dashboards" ]; then
-            TEST_PATH_LOCAL="$OSD_TEST_PATH/opensearch-dashboards"
+            TEST_PATH_LOCAL="$OSD_TEST_PATH"
             TEST_FILES_EXT_LOCAL="*.js"
         else
             TEST_PATH_LOCAL=$OSD_PLUGIN_TEST_PATH
