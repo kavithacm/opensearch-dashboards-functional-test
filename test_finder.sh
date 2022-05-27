@@ -6,6 +6,8 @@ OSD_BUILD_MANIFEST='../local-test-cluster/opensearch-dashboards-*/manifest.yml'
 OSD_TEST_PATH='cypress/integration/core-opensearch-dashboards/opensearch-dashboards'
 OSD_PLUGIN_TEST_PATH='cypress/integration/plugins'
 
+echo "1"
+
 # Map component name in opensearch-build repo INPUT_MANIFEST with folder name for tests in functional repo
 OSD_COMPONENT_TEST_MAP=( "OpenSearch-Dashboards:opensearch-dashboards"
                          "alertingDashboards:alerting-dashboards-plugin"
@@ -21,7 +23,7 @@ OSD_COMPONENT_TEST_MAP=( "OpenSearch-Dashboards:opensearch-dashboards"
 
 [ -f $OSD_BUILD_MANIFEST ] && TEST_TYPE="manifest" || TEST_TYPE="default"
 [ ! `echo $SHELL | grep 'bash'` ] && echo "You must run this script with bash as other shells like zsh will fail the script, exit in 10" && sleep 10 && exit 1
-
+echo "$TEST_TYPE"
 # Checks if build manifest in parent directory of current directory under local-test-cluster/opensearch-dashboards-*
 # When the test script executed in the CI, it scales up OpenSearch Dashboards under local-test-cluster with a 
 # manifest that contains the existing components.
@@ -37,10 +39,10 @@ function get_test_list() {
     local TEST_FILES_EXT_LOCAL=""
     local TEST_PATH_LOCAL=""
     local TEST_COMPONENTS_LOCAL="$@"
-
     for map_entry in "${OSD_COMPONENT_TEST_MAP[@]}"; do
         component_name=${map_entry%%:*}
         test_folder=${map_entry#*:}
+        echo "${component_name} in ${test_folder}"
 
         if [ "$component_name" = "OpenSearch-Dashboards" ]; then
             TEST_PATH_LOCAL="$OSD_TEST_PATH"
@@ -61,9 +63,9 @@ function get_test_list() {
                     fi
                 done
             fi
-
         elif [ "$TEST_TYPE" = "manifest" ]; then
-            if grep -q $component_name; then
+            echo "here"
+            if grep -q $component_name $OSD_BUILD_MANIFEST; then
                 TEST_FILES_LOCAL+="$TEST_PATH_LOCAL/$test_folder/$TEST_FILES_EXT_LOCAL,"
             fi
         fi
