@@ -3,37 +3,54 @@
 
 <head>
   <title>OpenSearch Dashboards Functional Test Repo</title>
+  <meta charset="UTF-8">
   <link rel="stylesheet" href="styles.css">
   <script src="js/dashboard.js"></script>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 </head>
 
 <body>
-  <div>
+  <div class="topnav">
+    <span>OpenSearch Dashboards Test Results Explorer</span>
+    <a href="https://github.com/opensearch-project/opensearch-dashboards-functional-test">Github</a>
+  </div> 
+  <div id="advancedConfigDiv">
+    <table>
+      <tr>
+        <th>
+          Advanced Configurations
+        </th>
+      </tr>
+      <tr>
+        <td id="advancedConfigTd">
+          <input type="checkbox" id="advancedConfig" onclick="enableAdvancedConfig()">
+        </td>
+      </tr>
+    </table>
+  </div>
+  <div id="inputsDiv">
     <table>
       <tr>
         <th>Version</th>
-        <th>Test Job Name</th>
         <th>Build Number</th>
-        <th>Test Number</th>
-        <th>Platform</th>
-        <th>Arch</th>
-        <th>Type</th>
-        <th>With Security</th>
       </tr>
       <tr>
         <td>
           <input type="text" id="version" value="2.0.0">
         </td>
         <td>
-          <input type="text" id="testJobName" value="Playground/avillk-integ-test-opensearch-dashboards">
-        </td>
-        <td>
           <input type="text" id="buildNumber" value="3936">
         </td>
-        <td>
-          <input type="text" id="testNumber" value="310">
-        </td>
+      </tr>
+    </table>
+    <table>
+      <tr>
+        <th>Platform</th>
+        <th>Arch</th>
+        <th>Type</th>
+        <th>With Security</th>
+      </tr>
+      <tr>
         <td>
           <select id="platform">
             <option value="linux">Linux</option>
@@ -51,20 +68,38 @@
             <option value="rpm">rpm</option>
           </select>
         </td>
-        <td>
+        <td id="securityTd">
           <input type="checkbox" id="security">
-        </td>
-        <td>
-          <button onclick="getTestResults()">Submit</button>
         </td>
       </tr>
     </table>
+    <table id="advancedInputsTable">
+      <tr>
+        <th>Test Number</th>
+      </tr>
+      <tr>
+        <td>
+          <input type="text" id="testNumber" value="320">
+        </td>
+      </tr>
+      <tr>
+        <th>Test Job Name</th>
+      </tr>
+      <tr>
+        <td>
+          <input style="width:50vw" type="text" id="testJobName" value="Playground/avillk-integ-test-opensearch-dashboards">
+        </td>
+      </tr>
+    </table>
+    <button id="submitButton" onclick="getTestResults()">Submit</button>
+  </div>
+  <div id="testResultsLinksDiv">
+    <h2>Useful Links:</h2>
+    <a id="testResultLink"></a>
   </div>
   <div id="testResultsDiv">
-    IF YOU SMELLLLLL WHAT THE ROCK IS COOKING
-  </div>
-  <div>
-    <iframe id="testResults"></p>
+    <h2>Test Results:</h2>
+    <iframe id="testResults"><meta charset="utf-8"></iframe>
   </div>
 </body>
 

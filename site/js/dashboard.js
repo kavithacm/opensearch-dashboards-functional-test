@@ -20,17 +20,19 @@ function getTestResults() {
     `${securityEnabled ? 'with-security' : 'without-security'}/` +
     'test-results/stdout.txt';
 
-  document.getElementById(
-    'testResultsDiv'
-  ).innerHTML = `Results from:\n ${testResultsUrl}`;
+  document.getElementById('testResultsLinksDiv').style.display = 'block';
+  var testResultsLink = document.getElementById('testResultLink');
+  testResultsLink.textContent = testResultsUrl;
+  testResultsLink.href = testResultsUrl;
+  document.getElementById('testResultsDiv').style.display = 'block';
   document.getElementById('testResults').src =
     decodeURIComponent(testResultsUrl);
-  // fetch(testResultsUrl, { mode: 'no-cors' }).then((response) => {
-  //   response.text().then((data) => {
-  //     document.getElementById('testResults').innerHTML = data;
-  //   });
-  // });
-  // document.getElementById('absoluteUrl').innerHTML = testResultsUrl;
+}
+
+// eslint-disable-next-line no-unused-vars
+function enableAdvancedConfig() {
+  document.getElementById('advancedInputsTable').style.display =
+    document.getElementById('advancedConfig').checked ? 'block' : 'none';
 }
 
 // https://ci.opensearch.org/ci/dbc/Playground/avillk-integ-test-opensearch-dashboards/2.0.0-rc1/322/linux/x64/tar/test-results/1/integ-test/functionalTestDashboards/with-security/test-results/stdout.txt
