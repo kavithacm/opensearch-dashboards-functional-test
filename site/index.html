@@ -13,6 +13,7 @@
   <div class="topnav">
     <span>OpenSearch Dashboards Test Results Explorer</span>
     <a href="https://github.com/opensearch-project/opensearch-dashboards-functional-test">Github</a>
+    <a href="https://github.com/opensearch-project/opensearch-dashboards-functional-test/issues/new?assignees=&labels=enhancement%2C+untriaged&template=FEATURE_REQUEST_TEMPLATE.md&title=%5BFEATURE%5D">Plugin Not Here?</a>
   </div> 
   <div id="advancedConfigDiv">
     <table>
@@ -27,6 +28,11 @@
         </td>
       </tr>
     </table>
+  </div>
+  <div id="descriptionDiv">
+    Welcome to the test results explorer! Please enter the version and build number to view results.
+    <br><br>
+    <i>NOTE: You might need to add an extension to view the results in UTF-8. Otherwise, download directly.</i>
   </div>
   <div id="inputsDiv">
     <table>
@@ -113,31 +119,31 @@
     <table>
       <tr>
         <td id="pluginButtonsTd">
-          <button onclick="getPluginLinks('alerting-dashboards-plugin')">
+          <button id="alertingDashboardsButton" onclick="getPluginLinks('alerting-dashboards-plugin')">
             alertingDashboards
           </button>
-          <button onclick="getPluginLinks('anomaly-detection-dashboards-plugin')">
+          <button id="anomalyDetectionDashboardsButton" onclick="getPluginLinks('anomaly-detection-dashboards-plugin')">
             anomalyDetectionDashboards
           </button>
-          <button onclick="getPluginLinks('gantt-chart-dashboards')">
+          <button id="ganttChartDashboardsButton" onclick="getPluginLinks('gantt-chart-dashboards')">
             ganttChartDashboards
           </button>
-          <button onclick="getPluginLinks('index-management-dashboards-plugin')">
+          <button id="indexManagementDashboardsButton" onclick="getPluginLinks('index-management-dashboards-plugin')">
             indexManagementDashboards
           </button>
-          <button onclick="getPluginLinks('notifications-dashboards')">
+          <button id="notificationsDashboardsButton" onclick="getPluginLinks('notifications-dashboards')">
             notificationsDashboards
           </button>
-          <button onclick="getPluginLinks('observability-dashboards')">
+          <button id="observabilityDashboardsButton" onclick="getPluginLinks('observability-dashboards')">
             observabilityDashboards
           </button>
-          <button onclick="getPluginLinks('query-workbench-dashboards')">
+          <button id="queryWorkbenchDashboardsButton" onclick="getPluginLinks('query-workbench-dashboards')">
             queryWorkbenchDashboards
           </button>
-          <button onclick="getPluginLinks('reports-dashboards')">
+          <button id="reportsDashboardsButton" onclick="getPluginLinks('reports-dashboards')">
             reportsDashboards
           </button>
-          <button id="securityPluginButton" onclick="getPluginLinks('security')">
+          <button id="securityDashboardsButton" onclick="getPluginLinks('security')">
             securityDashboards
           </button>
       </tr>
@@ -146,6 +152,12 @@
   <div id="pluginLinksDiv">
     <button onclick="closePluginLinks()">Close</button>
     <h2 id="pluginName"></h2>
+    <span><i>NOTE: If you are getting errors accessing these links please verify the plugin is within the build manifest (within the useful links section).</i></span>
+    <br>
+    <span>If your plugin isn't in the build manifest, please verify it has been added to:</span>
+    <span id="githubManifestLink"></span>
+    <br><br>
+    <span id="pluginLink"></span>
     <ul id="pluginLinksList"></ul>
   </div>
   <div id="testResultsDiv">

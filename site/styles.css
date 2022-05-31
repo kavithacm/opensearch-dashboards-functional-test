@@ -2,6 +2,10 @@ body {
     font: normal 12px Arial
 }
 
+#descriptionDiv {
+    margin: 8px 2px;
+}
+
 #advancedConfigDiv {
     float: right;
     margin-top: 10px;
@@ -49,7 +53,7 @@ body {
 
 #testResultsLinksDiv {
     width: 100%;
-    height: 30vh;
+    height: 25vh;
     display: none;
 }
 
@@ -62,7 +66,7 @@ body {
     box-sizing: border-box;
     cursor: pointer;
     color: white;
-    font-size: 14px;
+    font-size: 12px;
     font-weight: 500;
     line-height: 20px;
     list-style: none;
@@ -77,14 +81,15 @@ body {
 }
 
 #pluginLinksDiv {
+    padding: 8px;
     display: none;
     width: 750px;
-    height: 500px;
+    height: 550px;
     position: absolute;
     left: 50%;
     top: 50%; 
     margin-left: -375px;
-    margin-top: -250px;
+    margin-top: -245px;
     background-color: white;
     border-radius: 6px;
     box-shadow: rgba(27, 31, 35, 0.04) 0 1px 0, rgba(255, 255, 255, 0.25) 0 3px 0 inset;
